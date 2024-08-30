@@ -1,0 +1,44 @@
+@use 'variables';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+header{
+    grid-area: header;
+    background-color: variables.$color-primary;
+}
+main{
+    grid-area: main;
+    background-color: variables.$color-secondary;
+}
+footer{
+    grid-area: footer;
+    background-color: variables.$color-highlight;
+}
+header, main, footer{
+    padding: variables.$spacing-m;
+}
+
+.grid-schema{
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr max-content;
+    gap: variables.$spacing-xs;
+    grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+@media (min-width: 768px){
+    .grid-schema{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+        "header header header"
+        "main main main"
+        "footer footer footer";
+    }
+}
