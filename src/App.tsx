@@ -14,6 +14,7 @@ function App() {
       </main>
       <footer>
         <p>@ALEX AHMAD MIGUEL</ p>
+        <p>Testing testing</p>
       </footer>
     </div>
     </>
