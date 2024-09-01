@@ -36,7 +36,6 @@ li{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: max-content max-content 1fr max-content;
-    gap: variables.$spacing-xs;
     grid-template-areas:
     "header"
     "navbar"
@@ -54,9 +53,14 @@ li{
     p{
         font-size: variables.$font-size-m;
     }
-}
-.discussion-container:nth-child(odd){
-    background-color: rgb(255, 68, 47);
+    &::after{
+        content: "";
+        margin-top: variables.$spacing-m;
+        display: inline;
+        width: 100%;
+        height: 1px;
+        background-color: black;
+    }
 }
 a{
     text-decoration: none;
@@ -65,10 +69,11 @@ a{
     &:hover{
         color: rgb(255, 68, 47);
         transform: scale(1.1);
-        transition: 80ms ease-in-out;
+        transition: variables.$transition-short ease-in-out;
     }
 }
 button{
+    cursor: pointer;
     background: none;
     outline: none;
     border: none;
@@ -76,6 +81,12 @@ button{
     border-radius: variables.$spacing-xs;
     width: max-content;
     padding: variables.$spacing-s;
+    transition: variables.$transition-short ease-in-out;
+    &:hover{
+        background-color: variables.$color-hover;
+        box-shadow: 1px 1px 1px 1px black;
+        color: white;
+    }
 }
 
 

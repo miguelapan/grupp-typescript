@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom"
+import React from "react"
+import NavLink from "./ui/Link"
 
-function Navbar() {
+const Navbar: React.FC = () => {
   return (
     <nav>
         <ul>
           <li>
-           <Link to={'/'}>HOME</Link> 
+           <NavLink to={'/'} linkText="HOME"/> 
             </li>
           <li>
-            <Link to={'/help'}>HELP</Link>
+            <NavLink to={'/help'} linkText="HELP"/>
             </li>
         </ul>
       </nav>
