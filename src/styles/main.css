@@ -8,6 +8,12 @@
 header {
   grid-area: header;
   background-color: rgb(4, 255, 0);
+  font-size: large;
+}
+
+nav {
+  grid-area: navbar;
+  background-color: rgb(4, 255, 0);
 }
 
 main {
@@ -20,22 +26,26 @@ footer {
   background-color: rgb(255, 0, 0);
 }
 
-header, main, footer {
+header, nav, main, footer {
   padding: 20px;
+}
+
+li {
+  list-style: none;
 }
 
 .grid-schema {
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr max-content;
+  grid-template-rows: max-content max-content 1fr max-content;
   gap: 5px;
-  grid-template-areas: "header" "main" "footer";
+  grid-template-areas: "header" "navbar" "main" "footer";
 }
 
 @media (min-width: 768px) {
   .grid-schema {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: "header header header" "main main main" "footer footer footer";
+    grid-template-areas: "header header navbar" "main main main" "footer footer footer";
   }
 }/*# sourceMappingURL=main.css.map */
