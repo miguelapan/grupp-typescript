@@ -1,9 +1,15 @@
+import { Link } from "react-router-dom"
+
 function Navbar() {
   return (
     <nav>
         <ul>
-          <li>HOME</li>
-          <li>HELP</li>
+          <li>
+           <Link to={'/'}>HOME</Link> 
+            </li>
+          <li>
+            <Link to={'/help'}>HELP</Link>
+            </li>
         </ul>
       </nav>
   )
