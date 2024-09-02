@@ -25,13 +25,15 @@ function Home() {
     fetchThreads();
   }, []);
 
-  const handleAddThread = async (newThread: Thread) => {
+  const handleAddThread = async (newThreadData: Omit<Thread, "id">): Promise<Thread> => {
     try {
-      await createThreadService(newThread); 
-      setThreads((prevThreads) => [...prevThreads, newThread]); 
+      const createdThread = await createThreadService(newThreadData); 
+      setThreads((prevThreads) => [...prevThreads, createdThread]);
+      return createdThread; 
     } catch (error) {
       console.error("Error creating thread:", error);
       setError("Failed to create thread.");
+      throw error; 
     }
   };
 

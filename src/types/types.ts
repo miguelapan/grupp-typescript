@@ -6,7 +6,7 @@ export type User = {
 }
 
 export type Thread = {
-  id: number;
+  id: string; // ÄNDRAT FRÅN NUMBER TILL STRING PGA FIREBASE 
 	title: string;
 	category: ThreadCategory;
 	creationDate: string;
