@@ -24,6 +24,10 @@ footer{
     grid-area: footer;
     background-color: variables.$color-highlight;
 }
+.login-form{
+    grid-area: login;
+    background-color: variables.$color-primary;
+}
 header, nav, main, footer{
     padding: variables.$spacing-m;
 }
@@ -34,15 +38,67 @@ li{
 .grid-schema{
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: max-content max-content 1fr max-content;
-    gap: variables.$spacing-xs;
     grid-template-areas:
-    "header"
-    "navbar"
-    "main"
-    "footer";
+    "header header header"
+    "navbar navbar login"
+    "main main main"
+    "footer footer footer";
 }
+.thread-container{
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-xs;
+    padding: variables.$spacing-m;
+    h2{
+        font-size: variables.$font-size-xl;
+    }
+    p{
+        font-size: variables.$font-size-m;
+    }
+    &::after{
+        content: "";
+        margin-top: variables.$spacing-m;
+        display: inline;
+        width: 100%;
+        height: 1px;
+        background-color: black;
+    }
+}
+.form-thread-question{
+    display: flex;
+    flex-direction: column;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    &:hover{
+        color: rgb(255, 68, 47);
+        transform: scale(1.1);
+        transition: variables.$transition-short ease-in-out;
+    }
+}
+button{
+    cursor: pointer;
+    background: none;
+    outline: none;
+    border: none;
+    background-color: purple;
+    border-radius: variables.$spacing-xs;
+    width: max-content;
+    padding: variables.$spacing-xxs;
+    transition: variables.$transition-short ease-in-out;
+    &:hover{
+        background-color: variables.$color-hover;
+        box-shadow: 1px 1px 1px 1px black;
+        color: white;
+    }
+}
+
+
 @media (min-width: 768px){
     .grid-schema{
         grid-template-columns: 1fr 1fr 1fr;

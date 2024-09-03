@@ -1,11 +1,13 @@
 // COLORS 
 
-$color-primary: rgb(4, 255, 0);
-$color-secondary: rgb(0, 255, 255);
+$color-primary: rgb(212, 251, 212);
+$color-secondary: rgb(237, 253, 237);
 $color-highlight: rgb(255, 0, 0);
+$color-hover: rgba(79, 11, 96, 0.68);
 
 // SPACING 
 
+$spacing-xxs: 2px;
 $spacing-xs: 5px;
 $spacing-s: 10px;
 $spacing-m: 20px;
@@ -20,3 +22,9 @@ $font-size-m: 16px;
 $font-size-l: 18px;
 $font-size-xl: 20px;
 $font-size-xxl: 24px;
+
+// TRANSITION TIME 
+
+$transition-short: 80ms;
+$transition-medium: 150ms;
+$transition-long: 200ms;
