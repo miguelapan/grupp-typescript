@@ -42,13 +42,14 @@ export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> 
 
   export const createUser = async (user: User): Promise<User> => {
   try{
+    // KOLALR OM DEN FINNS 
     const userQuery = query(userCollection, where("username", "==", user.userName));
     const userQuerySnapshot: QuerySnapshot<DocumentData> = await getDocs(userQuery);
 
     if(!userQuerySnapshot.empty) {
       throw new Error("User already exists");
     }
-
+    
     const docRef: DocumentReference<DocumentData> = await addDoc(userCollection, user);
     const createdUser: User = {
       ...user,
@@ -59,9 +60,9 @@ export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> 
     console.error("Error creating user: ", err);
     throw err;
   } 
-};
+}
 
-// LOGIN USER 
+// LOGIN A USER 
 
 export const loginUser = async (username: string, password: string): Promise<User | null> => {
   try {
