@@ -23,12 +23,12 @@ main {
 
 footer {
   grid-area: footer;
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(108 175 225);
 }
 
 .login-form {
   grid-area: login;
-  background-color: rgb(212, 251, 212);
+  background-color: rgb(209 209 209);
 }
 
 header, nav, main, footer {
@@ -116,6 +116,10 @@ button:hover {
   background-color: rgba(79, 11, 96, 0.68);
   box-shadow: 1px 1px 1px 1px black;
   color: white;
+}
+
+.login-form {
+  color: rgb(209 209 209);
 }
 
 @media (min-width: 768px) {
