@@ -12,6 +12,15 @@ interface ThreadListProps {
 const ThreadList: React.FC<ThreadListProps> = ({ threads, loading, error }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  // FORMATERA DATUM 
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toISOString().split("T")[0]; // Extracts the YYYY-MM-DD part
+  };
+
+  // MODALHANDLER 
+
   function modalHandler() {
     setIsModalOpen(!isModalOpen);
   }
@@ -25,6 +34,8 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, loading, error }) => {
     <div>
       {reversedThreads.map((thread) => (
         <div className="thread-container" key={thread.id}>
+          <p>ANVÄNDARE: {thread.creator.userName}</p>
+          <p>skapad: {formatDate(thread.creationDate)}</p>
           <h2>{thread.title}</h2>
           <p>{thread.description}</p>
           <button onClick={() => modalHandler()}>SVARA</button>
