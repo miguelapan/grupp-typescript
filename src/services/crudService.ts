@@ -1,6 +1,6 @@
 import { Thread, User } from "../types/types";
 import { db } from "../../firebase/config";
-import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData } from "firebase/firestore";
+import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where } from "firebase/firestore";
 
               // COLLECTIONS 
 const threadCollection = collection(db, "threads");
@@ -42,6 +42,13 @@ export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> 
 
   export const createUser = async (user: User): Promise<User> => {
   try{
+    const userQuery = query(userCollection, where("username", "==", user.userName));
+    const userQuerySnapshot: QuerySnapshot<DocumentData> = await getDocs(userQuery);
+
+    if(!userQuerySnapshot.empty) {
+      throw new Error("User already exists");
+    }
+
     const docRef: DocumentReference<DocumentData> = await addDoc(userCollection, user);
     const createdUser: User = {
       ...user,
@@ -52,6 +59,24 @@ export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> 
     console.error("Error creating user: ", err);
     throw err;
   } 
-}
+};
 
-//CHECK IF USER EXISTS
+// LOGIN USER 
+
+export const loginUser = async (username: string, password: string): Promise<User | null> => {
+  try {
+    const usersQuery = query(userCollection, where("userName", "==", username), where("password", "==", password));
+    const userSnapshot: QuerySnapshot<DocumentData> = await getDocs(usersQuery);
+
+    if (userSnapshot.empty) {
+      console.log("User does not exist or invalid credentials.");
+      return null;
+    } else {
+      const userData = userSnapshot.docs[0].data() as User;
+      return { ...userData, id: userSnapshot.docs[0].id }; 
+    }
+  } catch (error) {
+    console.error("Error logging in: ", error);
+    throw error;
+  }
+};
