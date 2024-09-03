@@ -24,6 +24,11 @@ main {
 footer {
   grid-area: footer;
   background-color: rgb(108 175 225);
+  position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 10;
+    width: 100%;
 }
 
 .login-form {
