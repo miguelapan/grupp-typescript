@@ -7,32 +7,46 @@
 
 header {
   grid-area: header;
-  background-color: rgb(212, 251, 212);
+  background-color: rgb(209 209 209);
   font-size: 20px;
 }
 
 nav {
   grid-area: navbar;
-  background-color: rgb(212, 251, 212);
+  background-color: rgb(209 209 209);
 }
 
 main {
   grid-area: main;
-  background-color: rgb(237, 253, 237);
+  background-color: rgb(255, 255, 255);
 }
 
 footer {
   grid-area: footer;
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(108 175 225);
+  position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 10;
+    width: 100%;
 }
 
 .login-form {
   grid-area: login;
-  background-color: rgb(212, 251, 212);
+  background-color: rgb(209 209 209);
+      position: relative;
+    right: 0px;
+    top: 0;
 }
 
 header, nav, main, footer {
   padding: 20px;
+}
+
+ul {
+   display: flex;
+   gap: 20px;
+   font-weight: bold;
 }
 
 li {
@@ -71,6 +85,15 @@ li {
 .form-thread-question {
   display: flex;
   flex-direction: column;
+  gap: 5px;
+  width: 33%;
+}
+
+.form-thread-question textarea {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 94px;
 }
 
 a {
@@ -89,17 +112,22 @@ button {
   background: none;
   outline: none;
   border: none;
-  background-color: purple;
+  background-color: #3273fc;
   border-radius: 5px;
   width: -moz-max-content;
   width: max-content;
-  padding: 2px;
+  padding: 5px;
   transition: 80ms ease-in-out;
+  color: white;
 }
 button:hover {
   background-color: rgba(79, 11, 96, 0.68);
   box-shadow: 1px 1px 1px 1px black;
   color: white;
+}
+
+.login-form {
+  color: rgb(209 209 209);
 }
 
 @media (min-width: 768px) {

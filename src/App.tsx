@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-    <div className='grid-schema'>
+    <div className='grid-schema container'>
       <header>VÄLKOMMEN TILL FORUMET</header>
       <Navbar />
       {isAuth ? 
