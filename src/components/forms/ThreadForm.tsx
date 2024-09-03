@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { Thread, ThreadCategory } from "../../types/types"; 
 import FormInput from "../ui/FormInput";
 import TextArea from "../ui/FormTextArea";
+import { useAuth } from "../../services/authProvider";
 
 interface ThreadFormProps {
   onAddThread: (newThread: Omit<Thread, "id">) => Promise<Thread>;  
 }
 
-const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
+const ThreadForm: FC<ThreadFormProps> = ({ onAddThread }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<ThreadCategory>("THREAD"); 
   const [error, setError] = useState<string>("");
+
+  const { user } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
@@ -21,14 +24,19 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
       return;
     }
 
+    if(!user) {
+      setError("Du måste vara inloggad för att skapa en tråd");
+      return;
+    }
+
     const newThread: Omit<Thread, "id"> = {
       title,
       description,
       category,
       creationDate: new Date().toISOString(),
       creator: {
-        userName: "User name",
-        password: "Password", 
+        userName: user.userName,
+        password: user.password, 
       },
     };
 

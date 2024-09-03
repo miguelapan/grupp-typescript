@@ -19,9 +19,11 @@ const ThreadList: React.FC<ThreadListProps> = ({ threads, loading, error }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  const reversedThreads = threads.reverse();
+
   return (
     <div>
-      {threads.map((thread) => (
+      {reversedThreads.map((thread) => (
         <div className="thread-container" key={thread.id}>
           <h2>{thread.title}</h2>
           <p>{thread.description}</p>
