@@ -21,7 +21,6 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
       category,
       creationDate: new Date().toISOString(),
       creator: {
-        id: "1",
         userName: "User name",
         password: "Password", 
       },
@@ -31,7 +30,7 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
       const createdThread = await onAddThread(newThread);  
       console.log('Thread created successfully:', createdThread);
 
-// RETS 
+// RESETS 
       setTitle("");
       setDescription("");
       setCategory("THREAD");

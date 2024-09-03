@@ -1,4 +1,3 @@
-
 import { Thread, User } from "../types/types";
 import { db } from "../../firebase/config";
 import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData } from "firebase/firestore";
