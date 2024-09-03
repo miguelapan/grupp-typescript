@@ -85,7 +85,7 @@ li {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 33%;
+  height: 94px;
 }
 
 a {
