@@ -35,6 +35,12 @@ header, nav, main, footer {
   padding: 20px;
 }
 
+ul {
+   display: flex;
+   gap: 20px;
+   font-weight: bold;
+}
+
 li {
   list-style: none;
 }
@@ -71,6 +77,7 @@ li {
 .form-thread-question {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
 a {
