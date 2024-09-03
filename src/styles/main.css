@@ -34,6 +34,9 @@ footer {
 .login-form {
   grid-area: login;
   background-color: rgb(209 209 209);
+      position: relative;
+    right: 0px;
+    top: 0;
 }
 
 header, nav, main, footer {
