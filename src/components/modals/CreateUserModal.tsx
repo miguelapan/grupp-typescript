@@ -27,6 +27,7 @@ function CreateUserModal({onClose}: CreateUserModalProps) {
 
   return (
     <div className="modal">
+      <p>Create user</p>
     <form className="create-user-form" onSubmit={handleFormSubmit}>
     <input
       type="text"

@@ -45,6 +45,7 @@ function LoginForm() {
       <CreateUserModal onClose={handleModalOpen}/>
     ) : (
       <form className="login-form" onSubmit={handleFormSubmit}>
+        <p>Login</p>
       <input
         type="text"
         placeholder="username"

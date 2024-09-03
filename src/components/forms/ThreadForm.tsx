@@ -11,9 +11,15 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<ThreadCategory>("THREAD"); 
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
+
+    if (title.trim() === "" || description.trim() === "" || category.trim() === "") {
+      setError("Please fill in all fields before submitting.");
+      return;
+    }
 
     const newThread: Omit<Thread, "id"> = {
       title,
@@ -63,6 +69,7 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
         <option value="QNA">QNA</option>
       </select>
       <button type="submit">Submit</button>
+      {error && <p>{error}</p>}
     </form>
   );
 };
