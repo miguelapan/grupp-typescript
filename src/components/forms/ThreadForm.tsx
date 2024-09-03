@@ -17,7 +17,7 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
     event.preventDefault(); 
 
     if (title.trim() === "" || description.trim() === "" || category.trim() === "") {
-      setError("Please fill in all fields before submitting.");
+      setError("Fyll i alla fält");
       return;
     }
 
