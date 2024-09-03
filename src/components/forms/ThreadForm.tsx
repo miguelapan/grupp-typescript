@@ -21,6 +21,7 @@ const ThreadForm: React.FC<ThreadFormProps> = ({ onAddThread }) => {
       category,
       creationDate: new Date().toISOString(),
       creator: {
+        id: "1",
         userName: "User name",
         password: "Password", 
       },

@@ -1,9 +1,13 @@
 
-import { Thread } from "../types/types";
+import { Thread, User } from "../types/types";
 import { db } from "../../firebase/config";
 import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData } from "firebase/firestore";
 
+              // COLLECTIONS 
 const threadCollection = collection(db, "threads");
+const userCollection = collection(db, "users");
+
+// GET THREADS 
 
 export const getThreads = async (): Promise<Thread[]> => {
   try {
@@ -19,6 +23,8 @@ export const getThreads = async (): Promise<Thread[]> => {
   }
 };
 
+// POST THREAD 
+
 export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> => {
   try {
     const docRef: DocumentReference<DocumentData> = await addDoc(threadCollection, thread);
@@ -32,3 +38,21 @@ export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> 
     throw error;
   }
 };
+
+            // CREATE USERS
+
+  export const createUser = async (user: User): Promise<User> => {
+  try{
+    const docRef: DocumentReference<DocumentData> = await addDoc(userCollection, user);
+    const createdUser: User = {
+      ...user,
+      id: docRef.id,
+    };
+    return createdUser;
+  }catch(err) {
+    console.error("Error creating user: ", err);
+    throw err;
+  } 
+}
+
+//CHECK IF USER EXISTS

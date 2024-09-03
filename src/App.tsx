@@ -1,3 +1,4 @@
+import LoginForm from './components/forms/LoginForm'
 import Navbar from './components/Navbar'
 import './styles/main.css'
 import { Outlet } from 'react-router-dom'
@@ -9,6 +10,7 @@ function App() {
     <div className='grid-schema'>
       <header>VÄLKOMMEN TILL FORUMET</header>
       <Navbar />
+      <LoginForm />
       <main>
         <Outlet />
       </main>

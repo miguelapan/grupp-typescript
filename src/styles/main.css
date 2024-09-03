@@ -26,6 +26,11 @@ footer {
   background-color: rgb(255, 0, 0);
 }
 
+.login-form {
+  grid-area: login;
+  background-color: rgb(212, 251, 212);
+}
+
 header, nav, main, footer {
   padding: 20px;
 }
@@ -37,9 +42,9 @@ li {
 .grid-schema {
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: max-content max-content 1fr max-content;
-  grid-template-areas: "header" "navbar" "main" "footer";
+  grid-template-areas: "header header header" "navbar navbar login" "main main main" "footer footer footer";
 }
 
 .thread-container {
@@ -88,7 +93,7 @@ button {
   border-radius: 5px;
   width: -moz-max-content;
   width: max-content;
-  padding: 10px;
+  padding: 2px;
   transition: 80ms ease-in-out;
 }
 button:hover {

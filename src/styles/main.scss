@@ -24,6 +24,10 @@ footer{
     grid-area: footer;
     background-color: variables.$color-highlight;
 }
+.login-form{
+    grid-area: login;
+    background-color: variables.$color-primary;
+}
 header, nav, main, footer{
     padding: variables.$spacing-m;
 }
@@ -34,13 +38,13 @@ li{
 .grid-schema{
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: max-content max-content 1fr max-content;
     grid-template-areas:
-    "header"
-    "navbar"
-    "main"
-    "footer";
+    "header header header"
+    "navbar navbar login"
+    "main main main"
+    "footer footer footer";
 }
 .thread-container{
     display: flex;
@@ -85,7 +89,7 @@ button{
     background-color: purple;
     border-radius: variables.$spacing-xs;
     width: max-content;
-    padding: variables.$spacing-s;
+    padding: variables.$spacing-xxs;
     transition: variables.$transition-short ease-in-out;
     &:hover{
         background-color: variables.$color-hover;
