@@ -12,7 +12,7 @@ function LoginForm() {
   const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState<boolean>(false);
 
   // USE AUTH HOOK 
-  const { setUser } = useAuth();
+  const { setUser, setIsAuth } = useAuth();
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
@@ -23,6 +23,7 @@ function LoginForm() {
           setError("");
           setSuccess("You are logged in as : " + username);
           setUser(user);
+          setIsAuth(true);
         }else {
           console.log(user);
           setError("Invalid username or password");

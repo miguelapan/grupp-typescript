@@ -1,16 +1,29 @@
 import LoginForm from './components/forms/LoginForm'
 import Navbar from './components/Navbar'
+import { useAuth } from './services/authProvider';
 import './styles/main.css'
 import { Outlet } from 'react-router-dom'
 
 function App() {
+
+  const { isAuth, setIsAuth, setUser} = useAuth();
+
+  const handleLogout = () => {
+    setIsAuth(false);
+    setUser(null);
+  }
 
   return (
     <>
     <div className='grid-schema'>
       <header>VÄLKOMMEN TILL FORUMET</header>
       <Navbar />
-      <LoginForm />
+      {isAuth ? 
+      <div>
+        <p>YOU ARE LOGGED IN</p>
+        <button onClick={handleLogout}>LOG OUT</button>
+      </div> 
+      : <LoginForm />}
       <main>
         <Outlet />
       </main>

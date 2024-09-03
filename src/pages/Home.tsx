@@ -3,11 +3,15 @@ import { getThreads, createThread as createThreadService } from "../services/cru
 import { Thread } from "../types/types";
 import ThreadForm from "../components/forms/ThreadForm";
 import ThreadList from "../components/ThreadList";
+import { useAuth } from "../services/authProvider";
 
 function Home() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { isAuth } = useAuth();
+
 
   useEffect(() => {
     const fetchThreads = async () => {
@@ -39,7 +43,11 @@ function Home() {
 
   return (
     <>
-      <ThreadForm onAddThread={handleAddThread} />
+      {isAuth ? (
+        <ThreadForm onAddThread={handleAddThread} />
+      ) : (
+        <p>Log in to create a new thread.</p>
+      )}
       <ThreadList threads={threads} loading={loading} error={error} />
     </>
   );
