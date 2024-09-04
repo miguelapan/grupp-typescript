@@ -56,16 +56,44 @@ ul{
     "main main main"
     "footer footer footer";
 }
+.header-padding{
+    padding: variables.$spacing-m;
+}
 .thread-container{
     display: flex;
     flex-direction: column;
     gap: variables.$spacing-xs;
     padding: variables.$spacing-m;
+    background-color: rgba(187, 79, 79, 0.071);
+    margin-bottom: variables.$spacing-m;
+    border-radius: 10px;
     h2{
         font-size: variables.$font-size-xl;
     }
-    p{
+    .thread-login{
+        margin: variables.$spacing-m 0 variables.$spacing-m 0;
+        color: variables.$color-highlight;
+        font-size: variables.$font-size-s;
+    }
+    .thread-title{
+
+    }
+    .thread-nocomments{
+        font-size: variables.$font-size-s;
+        margin: variables.$spacing-xs 0;
+    }
+    .thread-username{
+        font-size: variables.$font-size-xs;
+        align-self: flex-end;
+        margin: variables.$spacing-m 0 0 0;
+    }
+    .thread-description{
+        margin-top: variables.$spacing-m;
         font-size: variables.$font-size-m;
+    }
+    .thread-timestamp{
+        align-self: flex-end;
+        font-size: variables.$font-size-xs;
     }
     &::after{
         content: "";
@@ -112,7 +140,7 @@ button{
     transition: variables.$transition-short ease-in-out;
     &:hover{
         background-color: variables.$color-hover;
-        box-shadow: 1px 1px 1px 1px black;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.27);
         color: white;
     }
 }
@@ -124,7 +152,7 @@ button{
     .grid-schema{
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas:
-        "header header navbar"
+        "header navbar login"
         "main main main"
         "footer footer footer";
     }

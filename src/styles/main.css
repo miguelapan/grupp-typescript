@@ -58,17 +58,43 @@ ul {
   grid-template-areas: "header header header" "navbar navbar login" "main main main" "footer footer footer";
 }
 
+.header-padding {
+  padding: 20px;
+}
+
 .thread-container {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 20px;
+  background-color: rgba(187, 79, 79, 0.071);
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 .thread-container h2 {
   font-size: 20px;
 }
-.thread-container p {
+.thread-container .thread-login {
+  margin: 20px 0 20px 0;
+  color: rgb(108, 175, 225);
+  font-size: 14px;
+}
+.thread-container .thread-nocomments {
+  font-size: 14px;
+  margin: 5px 0;
+}
+.thread-container .thread-username {
+  font-size: 12px;
+  align-self: flex-end;
+  margin: 20px 0 0 0;
+}
+.thread-container .thread-description {
+  margin-top: 20px;
   font-size: 16px;
+}
+.thread-container .thread-timestamp {
+  align-self: flex-end;
+  font-size: 12px;
 }
 .thread-container::after {
   content: "";
@@ -118,8 +144,8 @@ button {
   transition: 80ms ease-in-out;
 }
 button:hover {
-  background-color: rgba(79, 11, 96, 0.68);
-  box-shadow: 1px 1px 1px 1px black;
+  background-color: #1e58d4;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.27);
   color: white;
 }
 
@@ -130,6 +156,6 @@ button:hover {
 @media (min-width: 768px) {
   .grid-schema {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: "header header navbar" "main main main" "footer footer footer";
+    grid-template-areas: "header navbar login" "main main main" "footer footer footer";
   }
 }/*# sourceMappingURL=main.css.map */

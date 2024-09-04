@@ -70,10 +70,10 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
     <div>
       {reversedThreads.map((thread) => (
         <div className="thread-container" key={thread.id}>
-          <p>ANVÄNDARE: {thread.creator.userName}</p>
-          <p>skapad: {formatDate(thread.creationDate)}</p>
-          <h2>{thread.title}</h2>
-          <p>{thread.description}</p>
+          <h2 className="thread-title">{thread.title}</h2>
+          <p className="thread-description">{thread.description}</p>
+          <p className="thread-username">created by: {thread.creator.userName}</p>
+          <p className="thread-timestamp">skapad: {formatDate(thread.creationDate)}</p>
           {isAuth ? (
             <div>
               <input
@@ -92,18 +92,18 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
               </button>
             </div>
           ) : (
-            <p>Logga in om du vill lämna kommentar</p>
+            <p className="thread-login">Logga in om du vill lämna kommentar</p>
           )}
        {commentsByThreadId[thread.id] && commentsByThreadId[thread.id].length > 0 ? (
             <div className="comments-section">
               {commentsByThreadId[thread.id].map((comment) => (
                 <div key={comment.id} className="comment-container">
-                  <p><strong>{comment.creator.userName}:</strong> {comment.content}</p>
+                  <p className="comments-section">{comment.creator.userName}: {comment.content}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <div>No comments available for this thread.</div> 
+            <div className="thread-nocomments">No comments available for this thread.</div> 
           )}
       
         </div>

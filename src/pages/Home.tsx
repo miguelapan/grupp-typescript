@@ -46,7 +46,7 @@ function Home() {
       {isAuth ? (
         <ThreadForm onAddThread={handleAddThread} />
       ) : (
-        <p>Log in to create a new thread.</p>
+        <p className="header-padding">Logga in för att skapa en ny tråd.</p>
       )}
       <ThreadList threads={threads} loading={loading} error={error} />
     </>
