@@ -90,16 +90,14 @@ ul{
     }
     .thread-username{
         font-size: variables.$font-size-xs;
-        // align-self: flex-end;
         margin: variables.$spacing-m 0 0 0;
+    }
+    .thread-timestamp{
+        font-size: variables.$font-size-xs;
     }
     .thread-description{
         margin-top: variables.$spacing-m;
         font-size: variables.$font-size-m;
-    }
-    .thread-timestamp{
-        // align-self: flex-end;
-        font-size: variables.$font-size-xs;
     }
     &::after{
         content: "";
