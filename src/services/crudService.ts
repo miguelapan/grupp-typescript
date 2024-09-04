@@ -1,6 +1,6 @@
 import { Thread, User, Comment } from "../types/types";
 import { db } from "../../firebase/config";
-import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, doc } from "firebase/firestore";
+import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where } from "firebase/firestore";
 
               // COLLECTIONS 
 const threadCollection = collection(db, "threads");
@@ -84,22 +84,36 @@ export const loginUser = async (username: string, password: string): Promise<Use
 
 // CREATE COMMENT 
 
+
 export const createComment = async (comment: Omit<Comment, "id">): Promise<Comment> => {
-  try{
-    const threadRef = doc(db, "threads", comment.thread.toString());
-    const commentCollection = collection(threadRef, "comments");
+  try {
+    const commentCollection = collection(db, `threads/${comment.thread}/comments`);
     const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, comment);
-    // const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, {
-    //   ...comment,
-    //   thread: comment.thread.toString(), 
-    // });
     const createdComment: Comment = {
       ...comment,
       id: docRef.id,
     };
     return createdComment;
-  }catch(err) {
+  } catch (err) {
     console.error("Error creating comment: ", err);
     throw err;
   }
-}
+};
+
+  // GET COMMENTS 
+export const getCommentsById = async (threadId: string): Promise<Comment[]> => {
+  try {
+    const commentsCollection = collection(db, `threads/${threadId}/comments`);
+    const snapshot = await getDocs(commentsCollection);
+    const comments = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      thread: threadId,
+      content: doc.data().content as string,
+      creator: doc.data().creator as User,
+    }));
+    return comments;
+  } catch (error) {
+    console.error("Error fetching comments: ", error);
+    throw error;
+  }
+};
