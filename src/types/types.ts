@@ -22,8 +22,8 @@ export type QNAThread =  Thread & { //Type extension
 }
 
 export type Comment = {
-	id: number;
+	id: string;
 	thread: number;
 	content: string;
-	creator: User
+	creator: User;
 }

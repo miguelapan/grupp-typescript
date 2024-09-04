@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: monospace;
+    font-family: variables.$font-primary;
 }
 // LAYOUT GRID
 header{
@@ -23,10 +23,15 @@ main{
 footer{
     grid-area: footer;
     background-color: variables.$color-highlight;
+    z-index: 10;
+    width: 100%;
 }
 .login-form{
     grid-area: login;
     background-color: variables.$color-primary;
+    position: relative;
+    right: 0px;
+    top: 0;
 }
 header, nav, main, footer{
     padding: variables.$spacing-m;
@@ -34,6 +39,11 @@ header, nav, main, footer{
 
 li{
     list-style: none;
+}
+ul{
+    display: flex;
+    gap: variables.$spacing-m;
+    font-weight: bold;
 }
 .grid-schema{
     height: 100vh;
@@ -69,6 +79,14 @@ li{
 .form-thread-question{
     display: flex;
     flex-direction: column;
+    gap: variables.$spacing-xs;
+    width: 33%;
+}
+.form-thread-question textarea{
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-xs;
+    height: 94px;
 }
 
 a{
@@ -86,7 +104,8 @@ button{
     background: none;
     outline: none;
     border: none;
-    background-color: purple;
+    background-color: variables.$color-button;
+    color: white;
     border-radius: variables.$spacing-xs;
     width: max-content;
     padding: variables.$spacing-xxs;
@@ -97,7 +116,9 @@ button{
         color: white;
     }
 }
-
+.login-form{
+    color: variables.$color-primary;
+}
 
 @media (min-width: 768px){
     .grid-schema{

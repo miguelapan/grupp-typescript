@@ -1,6 +1,6 @@
-import { Thread, User } from "../types/types";
+import { Thread, User, Comment } from "../types/types";
 import { db } from "../../firebase/config";
-import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, doc } from "firebase/firestore";
 
               // COLLECTIONS 
 const threadCollection = collection(db, "threads");
@@ -81,3 +81,25 @@ export const loginUser = async (username: string, password: string): Promise<Use
     throw error;
   }
 };
+
+// CREATE COMMENT 
+
+export const createComment = async (comment: Omit<Comment, "id">): Promise<Comment> => {
+  try{
+    const threadRef = doc(db, "threads", comment.thread.toString());
+    const commentCollection = collection(threadRef, "comments");
+    const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, comment);
+    // const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, {
+    //   ...comment,
+    //   thread: comment.thread.toString(), 
+    // });
+    const createdComment: Comment = {
+      ...comment,
+      id: docRef.id,
+    };
+    return createdComment;
+  }catch(err) {
+    console.error("Error creating comment: ", err);
+    throw err;
+  }
+}

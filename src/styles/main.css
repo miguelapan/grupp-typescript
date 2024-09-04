@@ -2,18 +2,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: "Roboto", sans-serif;
 }
 
 header {
   grid-area: header;
-  background-color: rgb(209 209 209);
+  background-color: rgb(209, 209, 209);
   font-size: 20px;
 }
 
 nav {
   grid-area: navbar;
-  background-color: rgb(209 209 209);
+  background-color: rgb(209, 209, 209);
 }
 
 main {
@@ -23,34 +23,31 @@ main {
 
 footer {
   grid-area: footer;
-  background-color: rgb(108 175 225);
-  position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    z-index: 10;
-    width: 100%;
+  background-color: rgb(108, 175, 225);
+  z-index: 10;
+  width: 100%;
 }
 
 .login-form {
   grid-area: login;
-  background-color: rgb(209 209 209);
-      position: relative;
-    right: 0px;
-    top: 0;
+  background-color: rgb(209, 209, 209);
+  position: relative;
+  right: 0px;
+  top: 0;
 }
 
 header, nav, main, footer {
   padding: 20px;
 }
 
-ul {
-   display: flex;
-   gap: 20px;
-   font-weight: bold;
-}
-
 li {
   list-style: none;
+}
+
+ul {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
 }
 
 .grid-schema {
@@ -113,12 +110,12 @@ button {
   outline: none;
   border: none;
   background-color: #3273fc;
+  color: white;
   border-radius: 5px;
   width: -moz-max-content;
   width: max-content;
-  padding: 5px;
+  padding: 2px;
   transition: 80ms ease-in-out;
-  color: white;
 }
 button:hover {
   background-color: rgba(79, 11, 96, 0.68);
@@ -127,7 +124,7 @@ button:hover {
 }
 
 .login-form {
-  color: rgb(209 209 209);
+  color: rgb(209, 209, 209);
 }
 
 @media (min-width: 768px) {
