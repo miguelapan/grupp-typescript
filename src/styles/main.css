@@ -74,10 +74,19 @@ ul {
 .thread-container h2 {
   font-size: 20px;
 }
+.thread-container .thread-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 .thread-container .thread-login {
   margin: 20px 0 20px 0;
   color: rgb(108, 175, 225);
   font-size: 14px;
+}
+.thread-container .thread-title {
+  font-size: 18px;
 }
 .thread-container .thread-nocomments {
   font-size: 14px;
@@ -85,7 +94,6 @@ ul {
 }
 .thread-container .thread-username {
   font-size: 12px;
-  align-self: flex-end;
   margin: 20px 0 0 0;
 }
 .thread-container .thread-description {
@@ -93,7 +101,6 @@ ul {
   font-size: 16px;
 }
 .thread-container .thread-timestamp {
-  align-self: flex-end;
   font-size: 12px;
 }
 .thread-container::after {

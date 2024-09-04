@@ -70,10 +70,15 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
     <div>
       {reversedThreads.map((thread) => (
         <div className="thread-container" key={thread.id}>
+          <div className="thread-header">
+
           <h2 className="thread-title">{thread.title}</h2>
-          <p className="thread-description">{thread.description}</p>
+          <span className="username-timestamp-span">
           <p className="thread-username">created by: {thread.creator.userName}</p>
           <p className="thread-timestamp">skapad: {formatDate(thread.creationDate)}</p>
+          </span>
+          </div>
+          <p className="thread-description">{thread.description}</p>
           {isAuth ? (
             <div>
               <input

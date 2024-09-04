@@ -70,13 +70,19 @@ ul{
     h2{
         font-size: variables.$font-size-xl;
     }
+    .thread-header {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center; 
+        margin-bottom: variables.$spacing-m;
+    }
     .thread-login{
         margin: variables.$spacing-m 0 variables.$spacing-m 0;
         color: variables.$color-highlight;
         font-size: variables.$font-size-s;
     }
     .thread-title{
-
+        font-size: variables.$font-size-l;
     }
     .thread-nocomments{
         font-size: variables.$font-size-s;
@@ -84,7 +90,7 @@ ul{
     }
     .thread-username{
         font-size: variables.$font-size-xs;
-        align-self: flex-end;
+        // align-self: flex-end;
         margin: variables.$spacing-m 0 0 0;
     }
     .thread-description{
@@ -92,7 +98,7 @@ ul{
         font-size: variables.$font-size-m;
     }
     .thread-timestamp{
-        align-self: flex-end;
+        // align-self: flex-end;
         font-size: variables.$font-size-xs;
     }
     &::after{
