@@ -28,11 +28,6 @@ export const getThreads = async (): Promise<Thread[]> => {
 export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> => {
   try {
 
-    // const threadWithCatgory: Omit<Thread, "id"> = {
-    //   ...thread,
-    //   category: "THREAD",
-    // };
-
     const docRef: DocumentReference<DocumentData> = await addDoc(threadCollection, thread);
     const createdThread: Thread = {
       ...thread,
