@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
-import { Thread, ThreadCategory } from "../../types/types"; 
+import { QNAThread, Thread, ThreadCategory } from "../../types/types"; 
 import FormInput from "../ui/FormInput";
 import TextArea from "../ui/FormTextArea";
 import { useAuth } from "../../services/authProvider";
 
 interface ThreadFormProps {
-  onAddThread: (newThread: Omit<Thread, "id">) => Promise<Thread>;  
+  onAddThread: (newThread: Omit<Thread, "id"> | Omit<QNAThread, "id">)=> Promise<Thread | QNAThread>;  
 }
 
 const ThreadForm: FC<ThreadFormProps> = ({ onAddThread }) => {
@@ -40,8 +40,15 @@ const ThreadForm: FC<ThreadFormProps> = ({ onAddThread }) => {
       },
     };
 
+    const newThreadData = category === "QNA"
+    ? {
+        ...newThread,
+        isAnswered: false,
+      }
+    : newThread; // Keep as a regular thread
+
     try {
-      const createdThread = await onAddThread(newThread);  
+      const createdThread = await onAddThread(newThreadData as Omit<Thread, "id">);  
       console.log('Thread created successfully:', createdThread);
 
 // RESETS 

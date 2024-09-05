@@ -1,4 +1,4 @@
-import { Thread, User, Comment } from "../types/types";
+import { Thread, User, Comment, QNAThread } from "../types/types";
 import { db } from "../../firebase/config";
 import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where } from "firebase/firestore";
 
@@ -24,8 +24,15 @@ export const getThreads = async (): Promise<Thread[]> => {
 
 // POST THREAD 
 
+
 export const createThread = async (thread: Omit<Thread, "id">): Promise<Thread> => {
   try {
+
+    // const threadWithCatgory: Omit<Thread, "id"> = {
+    //   ...thread,
+    //   category: "THREAD",
+    // };
+
     const docRef: DocumentReference<DocumentData> = await addDoc(threadCollection, thread);
     const createdThread: Thread = {
       ...thread,
@@ -117,3 +124,24 @@ export const getCommentsById = async (threadId: string): Promise<Comment[]> => {
     throw error;
   }
 };
+
+// POST QNA
+
+export const createQNA = async (qna: Omit<QNAThread, "id">): Promise<QNAThread> => {
+  try{
+    const QNACategory: Omit<QNAThread, "id"> = {
+      ...qna,
+      category: "QNA",
+    };
+
+    const docRef: DocumentReference<DocumentData> = await addDoc(threadCollection, QNACategory);
+    const createdQNA: QNAThread = {
+      ...QNACategory,
+      id: docRef.id,
+    };
+    return createdQNA;
+  }catch(err){
+    console.error("Error creating QNA: ", err);
+    throw err;
+  }
+}
