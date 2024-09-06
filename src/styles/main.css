@@ -157,7 +157,7 @@ button:hover {
 }
 
 .login-form {
-  color: rgb(209, 209, 209);
+  background-color: rgb(209, 209, 209);
 }
 
 @media (min-width: 768px) {

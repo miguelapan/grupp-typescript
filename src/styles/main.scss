@@ -149,7 +149,8 @@ button{
     }
 }
 .login-form{
-    color: variables.$color-primary;
+    background-color: variables.$color-primary;
+
 }
 
 @media (min-width: 768px){

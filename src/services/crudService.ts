@@ -1,6 +1,6 @@
 import { Thread, User, Comment, QNAThread } from "../types/types";
 import { db } from "../../firebase/config";
-import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, updateDoc, doc } from "firebase/firestore";
 
               // COLLECTIONS 
 const threadCollection = collection(db, "threads");
@@ -140,3 +140,16 @@ export const createQNA = async (qna: Omit<QNAThread, "id">): Promise<QNAThread> 
     throw err;
   }
 }
+
+// UPDATE QNA IS ANSWERED
+
+export const updateQNA = async (threadId: string, isAnswered: boolean): Promise<void> => {
+  try{
+    const threadRef = doc(db, "threads", threadId);
+    await updateDoc(threadRef, {isAnswered });
+    console.log("QNA updated successfully");
+  }catch(err){
+    console.error("Error updating QNA: ", err);
+    throw err;
+  }
+};
