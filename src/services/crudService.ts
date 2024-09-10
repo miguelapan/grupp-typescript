@@ -85,12 +85,17 @@ export const loginUser = async (username: string, password: string): Promise<Use
 };
 
 // CREATE COMMENT 
+const removeUndefinedFields = (obj: any) => {
+  return Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== undefined));
+};
 
 
 export const createComment = async (comment: Omit<Comment, "id">): Promise<Comment> => {
   try {
     const commentCollection = collection(db, `threads/${comment.thread}/comments`);
-    const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, comment);
+
+    const sanitizedComment = removeUndefinedFields(comment);
+    const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, sanitizedComment);
     const createdComment: Comment = {
       ...comment,
       id: docRef.id,
@@ -154,3 +159,4 @@ export const updateQNA = async (threadId: string, isAnswered: boolean, answerCom
     throw err;
   }
 };
+

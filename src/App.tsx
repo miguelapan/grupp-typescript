@@ -28,8 +28,7 @@ function App() {
         <Outlet />
       </main>
       <footer>
-        <p>@ALEX AHMAD MIGUEL</ p>
-        <p>Testing testing</p>
+        <p>@MIGUEL</ p>
       </footer>
     </div>
     </>

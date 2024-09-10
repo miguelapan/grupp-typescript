@@ -27,4 +27,5 @@ export type Comment = {
 	thread: string;
 	content: string;
 	creator: User;
+	parentCommentId?: string; // DEN FICK HETA SÅ BARA
 }

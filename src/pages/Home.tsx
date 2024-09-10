@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getThreads, createThread as createThreadService } from "../services/crudService";
 import { Thread } from "../types/types";
 import ThreadForm from "../components/forms/ThreadForm";
-import ThreadList from "../components/ThreadList";
+import ThreadList from "../components/lists/ThreadList";
 import { useAuth } from "../services/authProvider";
 
 function Home() {
