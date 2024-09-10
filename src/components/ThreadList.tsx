@@ -10,7 +10,7 @@ interface ThreadListProps {
 }
 
 const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
-  const { isAuth, user } = useAuth();
+  const { isAuth, user, isModerator } = useAuth();
 
   const [comment, setComment] = useState<string>("");
   const [selectedThread, setSelectedThread] = useState<string | null>(null);
@@ -43,6 +43,7 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
           userName: user.userName,
           password: user.password,
           id: user.id || "",
+          isModerator: user.isModerator,
         },
         content: comment,
       };
@@ -109,7 +110,8 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
           <p className="thread-description">{thread.description}</p>
 
               {/* RENDER ALLA COMMENTS OM TRÅD INTE ÄR LÅST  */}
-          {isAuth ? (
+            
+          {(isAuth || isModerator) ? (
             <div>
               {(thread as QNAThread).isAnswered ? (
                 <p className="thread-answered">TRÅDEN ÄR LÅST</p>
@@ -142,7 +144,7 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
                     {comment.creator.userName}: {comment.content}
                   </p>
                   {/* KNAPP FÖR ATT VÄLJA SVAR  */}
-                  {user && user.userName === thread.creator.userName && !(thread as QNAThread).isAnswered && thread.category === "QNA" &&(
+                  {(user && user.userName === thread.creator.userName || isModerator) && !(thread as QNAThread).isAnswered && thread.category === "QNA" &&(
                     <button onClick={() => handleIsCorrectAnswer(thread.id, comment.id)}>Välj som svar</button>
                   )}
                   {/* RÄTT SVAR HIGHTLIGHT  */}

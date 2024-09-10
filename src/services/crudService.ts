@@ -76,7 +76,7 @@ export const loginUser = async (username: string, password: string): Promise<Use
       return null;
     } else {
       const userData = userSnapshot.docs[0].data() as User;
-      return { ...userData, id: userSnapshot.docs[0].id }; 
+      return { ...userData, id: userSnapshot.docs[0].id, isModerator: userData.isModerator  ?? false }; 
     }
   } catch (error) {
     console.error("Error logging in: ", error);

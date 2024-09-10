@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 function App() {
 
-  const { isAuth, setIsAuth, setUser} = useAuth();
+  const { isAuth, setIsAuth, setUser, user} = useAuth();
 
   const handleLogout = () => {
     setIsAuth(false);
@@ -20,7 +20,7 @@ function App() {
       <Navbar />
       {isAuth ? 
       <div>
-        <p>YOU ARE LOGGED IN</p>
+        <p>YOU ARE LOGGED IN AS {user?.userName}</p>
         <button onClick={handleLogout}>LOG OUT</button>
       </div> 
       : <LoginForm />}

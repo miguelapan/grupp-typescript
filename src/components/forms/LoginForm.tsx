@@ -1,7 +1,5 @@
 import { FormEvent, useState } from "react";
 import CreateUserModal from "../modals/CreateUserModal";
-import { loginUser } from "../../services/crudService";
-import { User } from "../../types/types";
 import { useAuth } from "../../services/authProvider";
 
 function LoginForm() {
@@ -12,25 +10,17 @@ function LoginForm() {
   const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState<boolean>(false);
 
   // USE AUTH HOOK 
-  const { setUser, setIsAuth } = useAuth();
+  const { login } = useAuth();
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
-    try{
-        const user: User | null = await loginUser(username, password);
-
-        if(user) {
-          setError("");
-          setSuccess("You are logged in as : " + username);
-          setUser(user);
-          setIsAuth(true);
-        }else {
-          console.log(user);
-          setError("Invalid username or password");
-        }
-    }catch(err: any) {
-      console.error("Error logging in: ", err);
-      setError(err.message);
+    const { success, message } = await login(username, password);
+    if(success) {
+      setError("");
+      setSuccess(message);
+    } else {
+      setSuccess("");
+      setError(message);
     }
   };
 

@@ -15,7 +15,7 @@ function CreateUserModal({onClose}: CreateUserModalProps) {
     e.preventDefault();
 
     try {
-      const newUser = await createUser({ userName: username, password });
+      const newUser = await createUser({ userName: username, password, isModerator: false });
       console.log("User created:", newUser);
       setSuccess(true);
     } catch (error) {
