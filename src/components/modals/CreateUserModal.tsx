@@ -9,7 +9,6 @@ function CreateUserModal({onClose}: CreateUserModalProps) {
 
     const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [success, setSuccess] = useState<boolean>(false);
 
   const handleCreateUserClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -17,7 +16,6 @@ function CreateUserModal({onClose}: CreateUserModalProps) {
     try {
       const newUser = await createUser({ userName: username, password });
       console.log("User created:", newUser);
-      setSuccess(true);
     } catch (error) {
       console.error("Error creating user:", error);
     }
@@ -45,7 +43,6 @@ function CreateUserModal({onClose}: CreateUserModalProps) {
     />
     <button onClick={handleCreateUserClick}>SAVE USER</button>
     <button type='button' onClick={onClose}>CLOSE</button>
-    {success && <p>User created successfully!</p>}
   </form>
     </div>
   )
