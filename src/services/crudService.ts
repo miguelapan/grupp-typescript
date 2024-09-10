@@ -143,10 +143,11 @@ export const createQNA = async (qna: Omit<QNAThread, "id">): Promise<QNAThread> 
 
 // UPDATE QNA IS ANSWERED
 
-export const updateQNA = async (threadId: string, isAnswered: boolean): Promise<void> => {
+export const updateQNA = async (threadId: string, isAnswered: boolean, answerCommentId?: string): Promise<void> => {
   try{
     const threadRef = doc(db, "threads", threadId);
-    await updateDoc(threadRef, {isAnswered });
+    const updateData = { isAnswered, ...(answerCommentId && { answerId: answerCommentId }) };
+    await updateDoc(threadRef, updateData);
     console.log("QNA updated successfully");
   }catch(err){
     console.error("Error updating QNA: ", err);

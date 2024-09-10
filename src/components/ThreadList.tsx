@@ -1,6 +1,6 @@
-import { Thread, Comment, QNAThread } from "../types/types"; 
+import { Thread, Comment, QNAThread } from "../types/types";
 import { useAuth } from "../services/authProvider";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { createComment, getCommentsById, updateQNA } from "../services/crudService";
 
 interface ThreadListProps {
@@ -15,7 +15,6 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
   const [comment, setComment] = useState<string>("");
   const [selectedThread, setSelectedThread] = useState<string | null>(null);
   const [commentsByThreadId, setCommentsByThreadId] = useState<{ [key: string]: Comment[] }>({});
-  const [isAnswered, setIsAnswered] = useState<{ [key: string]: boolean }>({});
 
   const fetchComments = async (threadId: string) => {
     try {
@@ -29,6 +28,13 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
     }
   };
 
+  useEffect(() => {
+    threads.forEach((thread) => {
+      fetchComments(thread.id);
+    });
+  }, [threads]);
+
+// HANTERAR NYA KOMMENTARRER 
   const handleComment = async (threadId: string) => {
     if (comment.trim() && user) {
       const newComment: Omit<Comment, "id"> = {
@@ -45,7 +51,7 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
         await createComment(newComment);
         setComment("");
         setSelectedThread(null);
-        fetchComments(threadId);
+        fetchComments(threadId); 
       } catch (err) {
         console.error("Error adding comment: ", err);
       }
@@ -54,35 +60,31 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
     }
   };
 
+  // Format date to ISO
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0];
   };
 
+      // HANDLE ANSWER  // UPPDATERAR QNA TRÅD
+  const handleIsCorrectAnswer = async (threadId: string, commentId: string) => {
+    try {
+      await updateQNA(threadId, true, commentId);
+      threads.forEach((thread) => {
+        if (thread.id === threadId && "isAnswered" in thread) {
+          (thread as QNAThread).isAnswered = true;
+          (thread as QNAThread).answerId = commentId;
+        }
+      });
+    } catch (err) {
+      console.error("Error updating QNA thread: ", err);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  // ISANSWERED HANDLER 
-
-const toggleIsAnswered = async (threadId: string) => {
-  const currentAnswer = isAnswered[threadId] ?? false;
-  const newAnswer = !currentAnswer;
-
-  setIsAnswered((prev) => ({
-    ...prev,
-    [threadId]: newAnswer,
-  }));
-
-    updateQNA(threadId, newAnswer).catch((err) => {
-      console.error("Error updating QNA thread: ", err);
-      setIsAnswered((prev) => ({
-        ...prev,
-        [threadId]: newAnswer,
-      }));
-    });
-}
-
-//VÄNDER PÅ TRÅDARNA SÅ SENASTE KOMMER FÖRST
+  // REVERSE TRHEADS 
   const reversedThreads = [...threads].reverse();
 
   return (
@@ -92,45 +94,46 @@ const toggleIsAnswered = async (threadId: string) => {
           <div className="thread-header">
             <h2 className="thread-title">{thread.title}</h2>
             <span className="username-timestamp-span">
-            {/* ÄR EN TYPE GUARD KOLLAR OM DEN HAR "isAnwered" i och isåfall render underliggande.*/}
-              {"isAnswered" in thread && (
+              {/* {"isAnswered" in thread && ( */}
+              {thread.category === "QNA" && (
                 <div>
                   <p className="thread-answered">
-                    Besvarad: {isAnswered[thread.id] == (thread as QNAThread).isAnswered ? "Ja" : "Nej"}
-                    </p>
-                  {/* KOLLAR OM DET ÄR SAMMA SKAPARE */}
-                  {user && user.userName === thread.creator.userName && (
-                    <button onClick={() => toggleIsAnswered(thread.id)}>TOGGLE</button>
-                  )
-                    }
+                    Besvarad: {(thread as QNAThread).isAnswered ? "Ja" : "Nej"}
+                  </p>
                 </div>
               )}
-              {/* ÄR EN TYPE GUARD */}
               <p className="thread-username">created by: {thread.creator.userName}</p>
               <p className="thread-timestamp">skapad: {formatDate(thread.creationDate)}</p>
             </span>
           </div>
           <p className="thread-description">{thread.description}</p>
+
+              {/* RENDER ALLA COMMENTS OM TRÅD INTE ÄR LÅST  */}
           {isAuth ? (
             <div>
-              <input
-                placeholder="KOMMENTAR"
-                value={selectedThread === thread.id ? comment : ""}
-                onChange={(e) => {
-                  setComment(e.target.value);
-                  setSelectedThread(thread.id);
-                }}
-              />
-              <button
-                onClick={() => handleComment(thread.id)}
-                disabled={!comment.trim()}
-              >
-                SVARA
-              </button>
+              {(thread as QNAThread).isAnswered ? (
+                <p className="thread-answered">TRÅDEN ÄR LÅST</p>
+              ) : (
+                <div>
+                  <input
+                    placeholder="KOMMENTAR"
+                    value={selectedThread === thread.id ? comment : ""}
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                      setSelectedThread(thread.id);
+                    }}
+                  />
+                  <button onClick={() => handleComment(thread.id)} disabled={!comment.trim()}>
+                    SVARA
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <p className="thread-login">Logga in om du vill lämna kommentar</p>
           )}
+
+          {/* RENDER COMMENTS  */}
           {commentsByThreadId[thread.id] && commentsByThreadId[thread.id].length > 0 ? (
             <div className="comments-section">
               {commentsByThreadId[thread.id].map((comment) => (
@@ -138,6 +141,14 @@ const toggleIsAnswered = async (threadId: string) => {
                   <p className="comments-section">
                     {comment.creator.userName}: {comment.content}
                   </p>
+                  {/* KNAPP FÖR ATT VÄLJA SVAR  */}
+                  {user && user.userName === thread.creator.userName && !(thread as QNAThread).isAnswered && thread.category === "QNA" &&(
+                    <button onClick={() => handleIsCorrectAnswer(thread.id, comment.id)}>Välj som svar</button>
+                  )}
+                  {/* RÄTT SVAR HIGHTLIGHT  */}
+                  {(thread as QNAThread).answerId === comment.id && (
+                    <p className="selected-answer-p">Detta är det valda svaret</p>
+                  )}
                 </div>
               ))}
             </div>
