@@ -165,4 +165,7 @@ button:hover {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "header navbar login" "main main main" "footer footer footer";
   }
+}
+.comments-section {
+  margin-left: 2rem;
 }/*# sourceMappingURL=main.css.map */

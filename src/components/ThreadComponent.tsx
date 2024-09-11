@@ -57,6 +57,13 @@ const ThreadComponent: FC<ThreadProps> = ({
               <button onClick={() => handleComment(thread.id, comment)} disabled={!comment.trim()}>
                 SVARA
               </button>
+              {/* Render COMMENTS */}
+              <CommentList
+                comments={comments}
+                thread={thread}
+                handleIsCorrectAnswer={handleIsCorrectAnswer}
+                handleComment={handleComment}
+              />
             </div>
           )}
         </div>
@@ -64,13 +71,6 @@ const ThreadComponent: FC<ThreadProps> = ({
         <p className="thread-login">Logga in om du vill lämna kommentar</p>
       )}
 
-      {/* Render COMMENTS */}
-      <CommentList
-        comments={comments}
-        thread={thread}
-        handleIsCorrectAnswer={handleIsCorrectAnswer}
-        handleComment={handleComment}
-      />
 
       
     </div>
