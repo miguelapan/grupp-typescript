@@ -4,7 +4,7 @@ export type User = {
 	id?: string;
 	userName: string;
 	password: string
-	isModerator: boolean;
+	isModerator?: boolean;
 }
 
 export type Thread = {

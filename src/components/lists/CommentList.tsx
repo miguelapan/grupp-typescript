@@ -9,6 +9,8 @@ interface CommentListProps {
   handleComment: (threadId: string, comment: string, parentCommentId?: string) => void;
 }
 
+// FILTER FULA ORD I KOMMENTARER
+
 const forbiddenWords = ["dum", "fet", "ful", "idiot", "korkad", "långsam", "trög", "töntig"];
 
 const filterComment = (comment: string): string => {
@@ -32,7 +34,6 @@ const CommentList: FC<CommentListProps> = ({ comments, thread, handleIsCorrectAn
             ...comment,
             content: filterComment(comment.content)
           }}
-          // comment={comment}
           thread={thread}
           handleIsCorrectAnswer={handleIsCorrectAnswer}
           handleComment={handleComment}

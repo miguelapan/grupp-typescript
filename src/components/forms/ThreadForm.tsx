@@ -36,7 +36,7 @@ const ThreadForm: FC<ThreadFormProps> = ({ onAddThread }) => {
       creationDate: new Date().toISOString(),
       creator: {
         userName: user.userName,
-        password: user.password, 
+        password: user.password,
       },
     };
 
