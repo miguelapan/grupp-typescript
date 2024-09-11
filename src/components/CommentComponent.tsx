@@ -4,7 +4,7 @@ import { useAuth } from "../services/authProvider";
 
 interface CommentProps {
   comment: Comment;
-  thread: Thread;
+  thread: Thread & { isAnswered?: boolean }; 
   handleComment: (threadId: string, comment: string, parentCommentId?: string) => void;
   handleIsCorrectAnswer: (threadId: string, commentId: string) => void;
 }
@@ -29,7 +29,23 @@ const CommentComponent: FC<CommentProps> = ({ comment, thread, handleIsCorrectAn
         <p className="selected-answer-p">Detta är det valda svaret</p>
       )}
       {/* REPLY FORM */}
-      <form
+      {thread && !thread.isAnswered && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const form = e.currentTarget as HTMLFormElement;
+            const replyContent = form.reply.value;
+            handleComment(thread.id, replyContent, comment.id); // Pass parentCommentId as comment.id
+            e.currentTarget.reset();
+          }}
+        >
+          <input type="text" name="reply" placeholder="Reply to this comment" />
+          <button type="submit">Reply</button>
+        </form>
+      )}
+
+
+      {/* <form
         onSubmit={(e) => {
           e.preventDefault();
           const form = e.currentTarget as HTMLFormElement;
@@ -40,7 +56,7 @@ const CommentComponent: FC<CommentProps> = ({ comment, thread, handleIsCorrectAn
       >
         <input type="text" name="reply" placeholder="Reply to this comment" />
         <button type="submit">Reply</button>
-      </form>
+      </form> */}
     </div>
   );
 };
