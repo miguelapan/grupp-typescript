@@ -28,4 +28,5 @@ export type Comment = {
 	content: string;
 	creator: User;
 	parentCommentId?: string; // DEN FICK HETA SÅ BARA
+	comments?: Comment[]; //DÄR FÅR DOM VARA
 }

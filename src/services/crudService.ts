@@ -1,6 +1,6 @@
 import { Thread, User, Comment, QNAThread } from "../types/types";
 import { db } from "../../firebase/config";
-import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, updateDoc, doc } from "firebase/firestore";
+import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, updateDoc, doc, getDoc } from "firebase/firestore";
 
               // COLLECTIONS 
 const threadCollection = collection(db, "threads");
@@ -89,17 +89,16 @@ const removeUndefinedFields = (obj: any) => {
   return Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== undefined));
 };
 
-
 export const createComment = async (comment: Omit<Comment, "id">): Promise<Comment> => {
   try {
     const commentCollection = collection(db, `threads/${comment.thread}/comments`);
-
     const sanitizedComment = removeUndefinedFields(comment);
     const docRef: DocumentReference<DocumentData> = await addDoc(commentCollection, sanitizedComment);
     const createdComment: Comment = {
       ...comment,
       id: docRef.id,
     };
+
     return createdComment;
   } catch (err) {
     console.error("Error creating comment: ", err);
@@ -107,18 +106,47 @@ export const createComment = async (comment: Omit<Comment, "id">): Promise<Comme
   }
 };
 
-  // GET COMMENTS 
+
+// KOLLA SEN 
+// KOLLA SEN 
+// KOLLA SEN 
+// KOLLA SEN 
+// KOLLA SEN 
+// KOLLA SEN 
+// KOLLA SEN 
+
 export const getCommentsById = async (threadId: string): Promise<Comment[]> => {
   try {
     const commentsCollection = collection(db, `threads/${threadId}/comments`);
-    const snapshot = await getDocs(commentsCollection);
-    const comments = snapshot.docs.map((doc) => ({
+    const snapshot: QuerySnapshot<DocumentData> = await getDocs(commentsCollection);
+    const comments = snapshot.docs.map(doc => ({
       id: doc.id,
       thread: threadId,
       content: doc.data().content as string,
       creator: doc.data().creator as User,
-    }));
-    return comments;
+      parentCommentId: doc.data().parentCommentId as string | undefined,
+    })) as Comment[];
+
+    // Krpngel kolla sen... 
+    const commentMap: { [key: string]: Comment } = {};
+    const rootComments: Comment[] = [];
+
+    comments.forEach(comment => {
+      commentMap[comment.id] = { ...comment, comments: [] };
+    });
+
+    comments.forEach(comment => {
+      if (comment.parentCommentId) {
+        const parent = commentMap[comment.parentCommentId];
+        if (parent) {
+          parent.comments!.push(commentMap[comment.id]);
+        }
+      } else {
+        rootComments.push(commentMap[comment.id]);
+      }
+    });
+
+    return rootComments;
   } catch (error) {
     console.error("Error fetching comments: ", error);
     throw error;

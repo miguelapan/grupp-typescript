@@ -1,7 +1,7 @@
-import { Thread, QNAThread, Comment } from "../types/types";
+import { Thread, QNAThread, Comment } from "../../types/types";
 import { FC, useState } from "react";
-import CommentList from "./lists/CommentList";
-import { useAuth } from "../services/authProvider";
+import CommentList from "./../lists/CommentList";
+import { useAuth } from "../../services/authProvider";
 
 interface ThreadProps {
   thread: Thread;

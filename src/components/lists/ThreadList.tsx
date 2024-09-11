@@ -2,7 +2,7 @@ import { Thread, Comment, QNAThread } from "../../types/types";
 import { useAuth } from "../../services/authProvider";
 import { FC, useState, useEffect } from "react";
 import { createComment, getCommentsById, updateQNA } from "../../services/crudService";
-import ThreadComponent from "../ThreadComponent";
+import ThreadComponent from "../subComponents/ThreadComponent";
 
 interface ThreadListProps {
   threads: Thread[];
@@ -11,8 +11,7 @@ interface ThreadListProps {
 }
 
 const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
-  const { isAuth, user, isModerator } = useAuth();
-  // const [selectedThread, setSelectedThread] = useState<string | null>(null);
+  const { user } = useAuth();
   const [commentsByThreadId, setCommentsByThreadId] = useState<{ [key: string]: Comment[] }>({});
 
   // FETCHING ALL COMMENTS 
@@ -65,12 +64,6 @@ const ThreadList: FC<ThreadListProps> = ({ threads, loading, error }) => {
       }
     }
   };
-
-  // Format date to ISO
-  // const formatDate = (dateString: string): string => {
-  //   const date = new Date(dateString);
-  //   return date.toISOString().split("T")[0];
-  // };
 
       // HANDLE ANSWER  // UPPDATERAR QNA TRÅD
   const handleIsCorrectAnswer = async (threadId: string, commentId: string) => {

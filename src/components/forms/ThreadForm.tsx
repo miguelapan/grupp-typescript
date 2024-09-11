@@ -45,7 +45,7 @@ const ThreadForm: FC<ThreadFormProps> = ({ onAddThread }) => {
         ...newThread,
         isAnswered: false,
       }
-    : newThread; // Keep as a regular thread
+    : newThread;
 
     try {
       const createdThread = await onAddThread(newThreadData as Omit<Thread, "id">);  
