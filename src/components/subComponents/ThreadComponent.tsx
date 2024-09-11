@@ -38,6 +38,7 @@ const ThreadComponent: FC<ThreadProps> = ({
           )}
           <p className="thread-username">created by: {thread.creator.userName}</p>
           <p className="thread-timestamp">skapad: {formatDate(thread.creationDate)}</p>
+          <p className="thread-category">kategori: {thread.category}</p>
         </span>
       </div>
       <p className="thread-description">{thread.description}</p>

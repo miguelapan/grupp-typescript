@@ -1,6 +1,6 @@
 import { Thread, User, Comment, QNAThread } from "../types/types";
 import { db } from "../../firebase/config";
-import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, updateDoc, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, DocumentReference, QuerySnapshot, DocumentData, query, where, updateDoc, doc } from "firebase/firestore";
 
               // COLLECTIONS 
 const threadCollection = collection(db, "threads");
